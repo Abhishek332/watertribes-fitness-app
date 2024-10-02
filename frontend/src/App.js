@@ -1,9 +1,10 @@
+import { WelcomeScreen } from "./pages/WelcomeScreen";
+
+
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-Basic flow for react is setup
-      </header>
+      <WelcomeScreen />
     </div>
   );
 }
