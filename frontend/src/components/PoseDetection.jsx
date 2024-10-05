@@ -49,7 +49,7 @@ const PoseDetection = () => {
   useEffect(() => {
     const detectPose = async () => {
       if (webcamRef.current && poseNet) {
-        const video = webcamRef.current.webcamElement;
+        const video = webcamRef.current.getWebcamElement();
         const poses = await poseNet.estimatePoses(video, {
           flipHorizontal: false,
         });
@@ -101,7 +101,7 @@ const PoseDetection = () => {
         ctx.beginPath();
         ctx.moveTo(start.x, start.y);
         ctx.lineTo(end.x, end.y);
-        ctx.strokeStyle = "green";
+        ctx.strokeStyle = "white";
         ctx.lineWidth = 4;
         ctx.stroke();
       }
