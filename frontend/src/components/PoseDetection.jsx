@@ -12,35 +12,39 @@ const PoseDetection = () => {
   const [squatCount, setSquatCount] = useState(0);
 
   const keypointPairs = [
-    [11, 13], // leftHip -> leftKnee
-    [13, 15], // leftKnee -> leftAnkle
-    [12, 14], // rightHip -> rightKnee
-    [14, 16], // rightKnee -> rightAnkle
-    [11, 12], // leftHip -> rightHip
-    [5, 7], // leftShoulder -> leftElbow
-    [7, 9], // leftElbow -> leftWrist
-    [6, 8], // rightShoulder -> rightElbow
-    [8, 10], // rightElbow -> rightWrist
-    [5, 6], // leftShoulder -> rightShoulder
-    [5, 11], // leftShoulder -> leftHip
-    [6, 12], // rightShoulder -> rightHip
+    [4,2], // rightEar -> rightEye
+    [2,0], // rightEye -> nose
+    [0,1], // nose -> leftEye
+    [1,3], // leftEye -> leftEar
+    [10,8], // rightWrist -> rightElbow
+    [8,6], // rightElbow -> rightShoulder
+    [6,12], // rightShoulder -> rightHip
+    [12,14], // rightHip -> rightKnee
+    [14,16], // rightKnee -> rightAnkle
+    [9,7], // leftWrist -> leftElbow
+    [7,5], // leftElbow -> leftShoulder
+    [5,11], // leftShoulder -> leftHip
+    [11,13], // leftHip -> leftKnee
+    [13,15], // leftKnee -> leftAnkle
+    [11,12], // leftHip -> rightHip
+    [5,6], // leftShoulder -> rightShoulder
   ];
 
   useEffect(() => {
     const loadPoseNet = async () => {
       await tf.ready();
 
-      // const model = await poseDetection.createDetector(poseDetection.SupportedModels.MoveNet, {
-      //   modelType: poseDetection.movenet.modelType.SINGLEPOSE_THUNDER, // Use SINGLEPOSE_THUNDER or SINGLEPOSE_LIGHTNING
-      // });
+      const model = await poseDetection.createDetector(poseDetection.SupportedModels.MoveNet, {
+        modelType: poseDetection.movenet.modelType.SINGLEPOSE_THUNDER, // Use SINGLEPOSE_THUNDER or SINGLEPOSE_LIGHTNING
+      });
 
-      const model = await poseDetection.createDetector(
-        poseDetection.SupportedModels.BlazePose,
-        {
-          runtime: "tfjs",
-          modelType: "full",
-        }
-      );
+      // const model = await poseDetection.createDetector(
+      //   poseDetection.SupportedModels.BlazePose,
+      //   {
+      //     runtime: "tfjs",
+      //     modelType: "full",
+      //   }
+      // );
       setPoseNet(model);
     };
     loadPoseNet();
@@ -65,7 +69,9 @@ const PoseDetection = () => {
     };
 
     const interval = setInterval(() => {
-      detectPose();
+      if (isCamOn) {
+        detectPose();
+      }
     }, 100);
 
     return () => clearInterval(interval);
