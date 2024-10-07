@@ -163,7 +163,7 @@ const PoseDetection = () => {
         )}
       </div>
       <div className="relative">
-        <Webcam ref={webcamRef} />
+        <Webcam ref={webcamRef} isCamOn={ isCamOn } />
         <canvas ref={canvasRef} className="absolute left-0 top-0" />
       </div>
     </div>

@@ -1,6 +1,6 @@
 import { useRef, useImperativeHandle, forwardRef } from "react";
 
-const Webcam = ({ height = 480, width = 640 }, ref) => {
+const Webcam = ({ height = 480, width = 640, isCamOn }, ref) => {
   const webcamRef = useRef(null);
   const mediaStreamRef = useRef(null); // To hold the media stream
 
@@ -25,7 +25,7 @@ const Webcam = ({ height = 480, width = 640 }, ref) => {
       },
       stopWebcam() {
         const stream = mediaStreamRef.current;
-        if (stream) {
+        if (stream && !isCamOn) {
           // Stop all tracks in the stream
           stream.getTracks().forEach(track => track.stop());
           mediaStreamRef.current = null; // Clear the stream reference
